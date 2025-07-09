@@ -1,0 +1,1 @@
+{"version":3,"file":"ApplicationManager.js","sourceRoot":"","sources":["../../src/ApplicationManager.ts"],"names":[],"mappings":"AAAA,OAAO,WAAW,MAAO,wBAAwB,CAAC;AAElD,MAAM,OAAO,kBAAkB;IAG3B;IACA,CAAC;IAED,YAAY;QACR,IAAI,WAAW,EAAE,CAAC,QAAQ,EAAE,CAAC;QAC7B,IAAI,CAAC,gBAAgB,EAAE,CAAC;IAC5B,CAAC;IAED,gBAAgB;IAEhB,CAAC;CACJ"}

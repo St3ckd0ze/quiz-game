@@ -13,10 +13,10 @@ app.listen(PORT, () => {
  * The User List managed as an in-memory list
  */
 const userList = new Map()
-userList.set("Team1", { "userID": "Team1", "points": 0, "credit": 0 })
-userList.set("Team2", { "userID": "Team2", "points": 0, "credit": 0 })
-userList.set("Team3", { "userID": "Team3", "points": 0, "credit": 0 })
-userList.set("Team4", { "userID": "Team4", "points": 0, "credit": 0 })
+userList.set("Team1", { "userID": "Team1", "points": 0})
+userList.set("Team2", { "userID": "Team2", "points": 0})
+userList.set("Team3", { "userID": "Team3", "points": 0})
+userList.set("Team4", { "userID": "Team4", "points": 0})
 
 app.use(bodyParser.json());
 

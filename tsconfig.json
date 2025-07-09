@@ -12,5 +12,5 @@
         "skipLibCheck": true,
         "allowSyntheticDefaultImports": true
     },
-    "include": ["src/*/", "public/module"]
+    "include": ["src/**/*", "public/module"]
 }

@@ -12,5 +12,5 @@
         "skipLibCheck": true,
         "allowSyntheticDefaultImports": true
     },
-    "include": ["src/**/*", "public/module", "public/ApplicationLoader.ts", "public/ApplicationManager.ts", "public/LandingPagePOM.ts", "public/StartPagePOM.ts", "public/UserManagementPagePOM.ts", "public/Users.ts", "public/ApplicationLoader.ts", "public/ApplicationManager.ts", "public/LandingPagePOM.ts", "public/StartPagePOM.ts", "public/UserManagementPagePOM.ts", "public/Users.ts"]
+    "include": ["src/**/*", "public/module", "public/ApplicationLoader.ts", "public/ApplicationManager.ts", "public/LandingPagePOM.ts", "public/StartPagePOM.ts", "public/UserManagementPagePOM.ts", "public/Users.ts", "public/ApplicationLoader.ts", "public/ApplicationManager.ts", "public/LandingPagePOM.ts", "public/StartPagePOM.ts", "public/UserManagementPagePOM.ts", "public/Users.ts", "public/navbar.js", "public/overlay.js"]
 }

@@ -157,5 +157,47 @@ app.delete('/api/users/:id', (req, res) => {
     else {
         return res.status(404).json({ message: 'User not found' });
     }
+});
 
+// ------------------------------------------------------------
+// QUIZ GAME TEAM ROUTES
+// ------------------------------------------------------------
+
+// GET all teams and their points for navbar + overlay dropdowns
+app.get('/teams', (req, res) => {
+    const teams = Array.from(userList.entries()).map(([name, data]) => ({
+        name,
+        points: data.points || 0
+    }));
+    res.json(teams);
+});
+
+// POST to update points after question answered
+app.post('/teams/update', (req, res) => {
+    const { teamName, isCorrect, fieldPoints, steal, victimTeam } = req.body;
+
+    if (!userList.has(teamName)) {
+        return res.status(400).json({ error: "Team nicht gefunden" });
+    }
+
+    let team = userList.get(teamName);
+
+    if (steal && victimTeam && userList.has(victimTeam)) {
+        let victim = userList.get(victimTeam);
+        const halfPoints = Math.floor(fieldPoints / 2);
+        victim.points -= halfPoints;
+        team.points += halfPoints;
+        userList.set(victimTeam, victim);
+        userList.set(teamName, team);
+        return res.json({ message: "Punkte geklaut" });
+    }
+
+    if (isCorrect) {
+        team.points += fieldPoints;
+    } else {
+        team.points -= Math.floor(fieldPoints / 2);
+    }
+
+    userList.set(teamName, team);
+    res.json({ message: "Punkte aktualisiert" });
 });

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -26,8 +26,8 @@
       cursor: pointer;
       transition: transform 0.2s, background-color 0.3s;
       border-radius: 15px;
-      height: 120px; /* war 100px */
-      width: 120px;  /* war 100px */
+      height: 120px;
+      width: 120px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -49,6 +49,59 @@
       background-color: rgba(0,0,0,0.5);
       width: 70px;
       margin: 0 8rem 0.5rem 8rem;
+    }
+    .navbar {
+      min-height: 60px;
+      background: rgba(0,0,0,0.5);
+      justify-content: center !important;
+    }
+    #questionOverlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      pointer-events: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    #questionOverlay.active {
+      display: flex;
+      pointer-events: auto;
+    }
+    #questionBox {
+      background-color: #828282;
+      padding: 2rem;
+      border-radius: 20px;
+      max-width: 1000px;
+      width: 95%;
+      text-align: center;
+      color: #000;
+    }
+    #questionTitle {
+      font-size: 6rem;
+      margin-bottom: 2rem;
+    }
+
+    #answerText {
+      font-size: 5rem;
+      margin-bottom: 2rem;
+      display: none;
+    }
+
+    #overlayControls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    #overlayControls select,
+    #overlayControls input[type="number"],
+    #overlayControls button {
+      font-size: 1.2rem;
+      padding: 0.3rem 0.6rem;
     }
     .container {
       max-width: 100%;
@@ -96,34 +149,6 @@
       color: inherit;
       margin-right: 1rem;
     }
-    .navbar {
-      min-height: 60px;
-      background: rgba(0,0,0,0.5);
-      justify-content: center !important;
-    }
-    #questionOverlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.8);
-      display: none;
-      pointer-events: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-    #questionOverlay.active {
-      display: flex;
-      pointer-events: auto;
-    }
-    #questionBox {
-      background-color: #828282;
-      padding: 2rem;
-      border-radius: 20px;
-      max-width: 600px;
-      width: 80%;
-      text-align: center;
-      color: #000;
-    }
   </style>
 </head>
 <body>
@@ -142,76 +167,51 @@
     <div class="col jeopardy-header">Ohrwurm</div>
   </div>
   <div class="row mb-2">
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 200)">200</div>
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 200)">200</div>
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 200)">200</div>
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 200)">200</div>
+    <div class="col jeopardy-cell" data-question="Was ist die höchste Tetris-Stufe?" data-answer="Level 29" onclick="showOverlay(this, 200)">200</div>
+    <div class="col jeopardy-cell" data-question="Welches Spiel zeigt dieser Screenshot?" data-answer="Minecraft" onclick="showOverlay(this, 200)">200</div>
+    <div class="col jeopardy-cell" data-question="Wie hoch ist der Eiffelturm?" data-answer="324 Meter" onclick="showOverlay(this, 200)">200</div>
+    <div class="col jeopardy-cell" data-question="Welcher Song beginnt mit 'Is this the real life...?'" data-answer="Bohemian Rhapsody von Queen" onclick="showOverlay(this, 200)">200</div>
   </div>
   <div class="row mb-2">
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 300)">300</div>
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 300)">300</div>
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 300)">300</div>
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 300)">300</div>
+    <div class="col jeopardy-cell" data-question="Wie viele Steine hat Tetris?" data-answer="7 verschiedene Formen" onclick="showOverlay(this, 300)">300</div>
+    <div class="col jeopardy-cell" data-question="Wie heißt das Spiel mit pixeligen Figuren?" data-answer="Terraria" onclick="showOverlay(this, 300)">300</div>
+    <div class="col jeopardy-cell" data-question="Wie viele Einwohner hat Berlin?" data-answer="ca. 3,6 Millionen" onclick="showOverlay(this, 300)">300</div>
+    <div class="col jeopardy-cell" data-question="Wer sang 'Thriller'?" data-answer="Michael Jackson" onclick="showOverlay(this, 300)">300</div>
   </div>
   <div class="row mb-2">
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 400)">400</div>
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 400)">400</div>
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 400)">400</div>
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 400)">400</div>
+    <div class="col jeopardy-cell" data-question="Was passiert bei einem Tetris?" data-answer="4 Linien gleichzeitig entfernen" onclick="showOverlay(this, 400)">400</div>
+    <div class="col jeopardy-cell" data-question="In welchem Spiel kannst du Häuser bauen?" data-answer="The Sims" onclick="showOverlay(this, 400)">400</div>
+    <div class="col jeopardy-cell" data-question="Wie schwer ist ein Blauwal?" data-answer="Bis zu 150 Tonnen" onclick="showOverlay(this, 400)">400</div>
+    <div class="col jeopardy-cell" data-question="Welcher Hit hat den Refrain 'Baby shark'?" data-answer="Baby Shark" onclick="showOverlay(this, 400)">400</div>
   </div>
   <div class="row mb-2">
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 500)">500</div>
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 500)">500</div>
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 500)">500</div>
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 500)">500</div>
+    <div class="col jeopardy-cell" data-question="Wer erfand Tetris?" data-answer="Alexey Pajitnov" onclick="showOverlay(this, 500)">500</div>
+    <div class="col jeopardy-cell" data-question="Welches Spiel ist ein Battle Royale?" data-answer="Fortnite" onclick="showOverlay(this, 500)">500</div>
+    <div class="col jeopardy-cell" data-question="Wie lang ist der Amazonas?" data-answer="ca. 6.400 km" onclick="showOverlay(this, 500)">500</div>
+    <div class="col jeopardy-cell" data-question="Wer ist bekannt für 'Shape of You'?" data-answer="Ed Sheeran" onclick="showOverlay(this, 500)">500</div>
   </div>
   <div class="row mb-2">
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 600)">600</div>
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 600)">600</div>
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 600)">600</div>
-    <div class="col jeopardy-cell" onclick="showOverlay(this, 600)">600</div>
+    <div class="col jeopardy-cell" data-question="Wann wurde Tetris veröffentlicht?" data-answer="1984" onclick="showOverlay(this, 600)">600</div>
+    <div class="col jeopardy-cell" data-question="Welches Spiel hat die blaue Spielfigur Sonic?" data-answer="Sonic the Hedgehog" onclick="showOverlay(this, 600)">600</div>
+    <div class="col jeopardy-cell" data-question="Wie alt ist die Erde?" data-answer="ca. 4,54 Milliarden Jahre" onclick="showOverlay(this, 600)">600</div>
+    <div class="col jeopardy-cell" data-question="Welcher Song war das Titellied von Frozen?" data-answer="Let It Go" onclick="showOverlay(this, 600)">600</div>
   </div>
 </div>
 
 <div id="questionOverlay">
   <div id="questionBox">
-    <h2 id="questionTitle">Frage beantworten</h2>
-    <label>Team:
+    <h2 id="questionTitle"></h2>
+    <div id="answerText"></div>
+    <button class="btn btn-warning mb-3" onclick="toggleAnswer()">Antwort anzeigen</button>
+    <div id="overlayControls">
       <select id="team-select"></select>
-    </label>
-    <br><br>
-    <label>Punkte:
       <input type="number" id="field-points" value="100">
-    </label>
-    <br><br>
-    <button id="correct-btn" class="btn btn-success mt-2">Korrekt beantwortet</button>
-    <button id="wrong-btn" class="btn btn-danger mt-2">Falsch beantwortet</button>
-    <br><br>
-    <button class="btn btn-light" onclick="closeOverlay()">Zurück</button>
+      <button id="correct-btn" class="btn btn-success">Korrekt</button>
+      <button id="wrong-btn" class="btn btn-danger">Falsch</button>
+      <button class="btn btn-light" onclick="closeOverlay(false)">Zurück</button>
+    </div>
   </div>
 </div>
-
-<script>
-  let activeCell = null;
-
-  function showOverlay(cell, points) {
-    if (cell.classList.contains('active')) {
-      // Wenn bereits aktiv, wieder freigeben
-      cell.classList.remove('active');
-      return;
-    }
-
-    activeCell = cell;
-    activeCell.classList.add('active');
-    document.getElementById('questionOverlay').classList.add('active');
-    document.getElementById('field-points').value = points;
-  }
-
-  function closeOverlay() {
-    document.getElementById('questionOverlay').classList.remove('active');
-    activeCell = null; // aktive Referenz löschen, Farbe bleibt
-  }
-</script>
 
 <script type="module" src="/js/pages/navbar.js"></script>
 <script type="module" src="/js/pages/overlay.js"></script>

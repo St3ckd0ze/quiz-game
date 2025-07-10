@@ -52,7 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Globale Funktion zum Öffnen des Overlays (für onclick im HTML)
 function showOverlay(cell: HTMLElement, points: number) {
   if (cell.classList.contains("active")) {
     cell.classList.remove("active");
@@ -60,7 +59,6 @@ function showOverlay(cell: HTMLElement, points: number) {
     return;
   }
 
-  if (activeCell) activeCell.classList.remove("active");
   activeCell = cell;
   activeCell.classList.add("active");
 
@@ -80,15 +78,14 @@ function showOverlay(cell: HTMLElement, points: number) {
   document.getElementById("questionOverlay")?.classList.add("active");
 }
 
-// Globale Funktion zum Schließen des Overlays (für onclick im HTML)
 function closeOverlay() {
   const overlay = document.getElementById("questionOverlay");
   if (overlay) {
     overlay.classList.remove("active");
   }
-  // activeCell bleibt gesetzt und behält die 'active' Klasse
+  // activeCell bleibt gesetzt, damit der Button transparent bleibt
 }
 
-// Damit Inline onclick funktioniert, ins globale Fenster-Objekt setzen
+// Globale Funktionen für HTML onclick-Handler
 (window as any).showOverlay = showOverlay;
 (window as any).closeOverlay = closeOverlay;

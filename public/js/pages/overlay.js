@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ teamName, isCorrect, fieldPoints })
             });
-            await loadTeams();
+            await loadTeams(); // Sofort nach Update die Teams neu laden
         }
         catch (e) {
             console.error("Fehler beim Punkte aktualisieren:", e);
@@ -48,15 +48,12 @@ document.addEventListener("DOMContentLoaded", () => {
         answerTextEl.style.display = answerTextEl.style.display === "none" ? "block" : "none";
     });
 });
-// Globale Funktion zum Öffnen des Overlays (für onclick im HTML)
 function showOverlay(cell, points) {
     if (cell.classList.contains("active")) {
         cell.classList.remove("active");
         activeCell = null;
         return;
     }
-    if (activeCell)
-        activeCell.classList.remove("active");
     activeCell = cell;
     activeCell.classList.add("active");
     const question = cell.getAttribute("data-question") || "";
@@ -70,15 +67,14 @@ function showOverlay(cell, points) {
     pointsInput.value = points.toString();
     document.getElementById("questionOverlay")?.classList.add("active");
 }
-// Globale Funktion zum Schließen des Overlays (für onclick im HTML)
 function closeOverlay() {
     const overlay = document.getElementById("questionOverlay");
     if (overlay) {
         overlay.classList.remove("active");
     }
-    // activeCell bleibt gesetzt und behält die 'active' Klasse
+    // activeCell bleibt gesetzt, damit der Button transparent bleibt
 }
-// Damit Inline onclick funktioniert, ins globale Fenster-Objekt setzen
+// Globale Funktionen für HTML onclick-Handler
 window.showOverlay = showOverlay;
 window.closeOverlay = closeOverlay;
 //# sourceMappingURL=overlay.js.map

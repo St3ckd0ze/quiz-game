@@ -1,6 +1,12 @@
 let activeCell: HTMLElement | null = null;
 
-document.addEventListener("DOMContentLoaded", () => {
+function toggleAnswer() {
+  const answerTextEl = document.getElementById("answerText") as HTMLElement;
+  if (!answerTextEl) return;
+  answerTextEl.style.display = (answerTextEl.style.display === "none" || answerTextEl.style.display === "") ? "block" : "none";
+}
+
+function initOverlayPage() {
   const teamSelect = document.getElementById("team-select") as HTMLSelectElement;
   const pointsInput = document.getElementById("field-points") as HTMLInputElement;
   const correctBtn = document.getElementById("correct-btn") as HTMLButtonElement;
@@ -45,10 +51,19 @@ document.addEventListener("DOMContentLoaded", () => {
   correctBtn.addEventListener("click", () => updatePoints(true));
   wrongBtn.addEventListener("click", () => updatePoints(false));
   loadTeams();
+}
 
-  const toggleAnswerBtn = document.querySelector(".btn-warning") as HTMLButtonElement;
-  toggleAnswerBtn?.addEventListener("click", () => {
-    answerTextEl.style.display = answerTextEl.style.display === "none" ? "block" : "none";
+document.addEventListener("DOMContentLoaded", () => {
+  const observer = new MutationObserver(() => {
+    if (document.getElementById("team-select")) {
+      initOverlayPage();
+      observer.disconnect();
+    }
+  });
+
+  observer.observe(document.getElementById("pageContent")!, {
+    childList: true,
+    subtree: true
   });
 });
 
@@ -71,7 +86,6 @@ function showOverlay(cell: HTMLElement, points: number) {
 
   questionTitleEl.textContent = question;
   answerTextEl.textContent = answer;
-  answerTextEl.style.display = "none";
 
   pointsInput.value = points.toString();
 
@@ -83,9 +97,10 @@ function closeOverlay() {
   if (overlay) {
     overlay.classList.remove("active");
   }
-  // activeCell bleibt gesetzt, damit der Button transparent bleibt
+  const answerTextEl = document.getElementById("answerText") as HTMLElement;
+  answerTextEl.style.display = "none";
 }
 
-// Globale Funktionen für HTML onclick-Handler
 (window as any).showOverlay = showOverlay;
 (window as any).closeOverlay = closeOverlay;
+(window as any).toggleAnswer = toggleAnswer;

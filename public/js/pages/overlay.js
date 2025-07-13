@@ -1,6 +1,12 @@
 "use strict";
 let activeCell = null;
-document.addEventListener("DOMContentLoaded", () => {
+function toggleAnswer() {
+    const answerTextEl = document.getElementById("answerText");
+    if (!answerTextEl)
+        return;
+    answerTextEl.style.display = (answerTextEl.style.display === "none" || answerTextEl.style.display === "") ? "block" : "none";
+}
+function initOverlayPage() {
     const teamSelect = document.getElementById("team-select");
     const pointsInput = document.getElementById("field-points");
     const correctBtn = document.getElementById("correct-btn");
@@ -34,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ teamName, isCorrect, fieldPoints })
             });
-            await loadTeams(); // Sofort nach Update die Teams neu laden
+            await loadTeams();
         }
         catch (e) {
             console.error("Fehler beim Punkte aktualisieren:", e);
@@ -43,9 +49,17 @@ document.addEventListener("DOMContentLoaded", () => {
     correctBtn.addEventListener("click", () => updatePoints(true));
     wrongBtn.addEventListener("click", () => updatePoints(false));
     loadTeams();
-    const toggleAnswerBtn = document.querySelector(".btn-warning");
-    toggleAnswerBtn?.addEventListener("click", () => {
-        answerTextEl.style.display = answerTextEl.style.display === "none" ? "block" : "none";
+}
+document.addEventListener("DOMContentLoaded", () => {
+    const observer = new MutationObserver(() => {
+        if (document.getElementById("team-select")) {
+            initOverlayPage();
+            observer.disconnect();
+        }
+    });
+    observer.observe(document.getElementById("pageContent"), {
+        childList: true,
+        subtree: true
     });
 });
 function showOverlay(cell, points) {
@@ -63,7 +77,6 @@ function showOverlay(cell, points) {
     const pointsInput = document.getElementById("field-points");
     questionTitleEl.textContent = question;
     answerTextEl.textContent = answer;
-    answerTextEl.style.display = "none";
     pointsInput.value = points.toString();
     document.getElementById("questionOverlay")?.classList.add("active");
 }
@@ -72,9 +85,10 @@ function closeOverlay() {
     if (overlay) {
         overlay.classList.remove("active");
     }
-    // activeCell bleibt gesetzt, damit der Button transparent bleibt
+    const answerTextEl = document.getElementById("answerText");
+    answerTextEl.style.display = "none";
 }
-// Globale Funktionen für HTML onclick-Handler
 window.showOverlay = showOverlay;
 window.closeOverlay = closeOverlay;
+window.toggleAnswer = toggleAnswer;
 //# sourceMappingURL=overlay.js.map

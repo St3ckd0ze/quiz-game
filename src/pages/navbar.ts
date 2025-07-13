@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadTeams() {
     try {
-      const res = await fetch('/teams');
+      const res = await fetch('/teams');  
       const teams = await res.json();
       ul.innerHTML = "";
       teams.forEach((team: {name: string, points: number}) => {
@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         li.appendChild(nameSpan);
         li.appendChild(pointsSpan);
-
         ul.appendChild(li);
       });
     } catch (err) {

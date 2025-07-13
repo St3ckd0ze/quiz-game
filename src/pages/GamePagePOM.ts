@@ -26,23 +26,10 @@ export default class GamePagePOM extends AbstractPOM {
                 }
 
                 if (el.dataset.state === "redo") {
-                    // War rot, zeigt wieder Frage
+                    // War grau und wird jetzt wieder transparent
                     this.lastClickedCell = el;
-
-                    const value = el.textContent?.trim() || '';
-                    title.innerText = `Frage für ${value} Punkte`;
-                    text.innerText = "Beispiel: Was ist der schnellste Wind?";
-                    overlay.style.display = 'flex';
-                    return;
                 }
 
-                // Normalfall: noch nicht angeklickt
-                this.lastClickedCell = el;
-
-                const value = el.textContent?.trim() || '';
-                title.innerText = `Frage für ${value} Punkte`;
-                text.innerText = "Beispiel: Was ist der schnellste Wind?";
-                overlay.style.display = 'flex';
             });
         });
 

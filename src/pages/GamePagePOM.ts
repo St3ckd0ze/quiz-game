@@ -17,7 +17,7 @@ export default class GamePagePOM extends AbstractPOM {
                 const el = cell as HTMLElement;
 
                 if (el.dataset.state === "hidden") {
-                    // War transparent, wird jetzt rot
+                    // War transparent, wird jetzt grau
                     el.style.backgroundColor = 'gray';
                     el.style.border = '2px solid #000';
                     el.style.color = '#000';

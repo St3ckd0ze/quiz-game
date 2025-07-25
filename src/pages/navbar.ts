@@ -27,5 +27,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   loadTeams();
-  setInterval(loadTeams, 3000);
+  setInterval(loadTeams, 1000);
 });

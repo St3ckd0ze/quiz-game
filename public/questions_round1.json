@@ -1,0 +1,22 @@
+[
+  {"category": "Geschichte", "question": "Wer war der erste Bundeskanzler?", "answer": "Konrad Adenauer", "points": 200},
+  {"category": "Geografie", "question": "Wie viele Kontinente gibt es?", "answer": "7", "points": 200},
+  {"category": "Wissenschaft", "question": "Wie viele Beine hat eine Spinne?", "answer": "8", "points": 200},
+  {"category": "Kultur", "question": "Wer schrieb Pippi Langstrumpf?", "answer": "Astrid Lindgren", "points": 200},
+  {"category": "Geschichte", "question": "Wann endete der Zweite Weltkrieg?", "answer": "1945", "points": 300},
+  {"category": "Geografie", "question": "Welches Land hat eine quadratische Flagge?", "answer": "Schweiz", "points": 300},
+  {"category": "Wissenschaft", "question": "Einheit des elektrischen Widerstands?", "answer": "Ohm", "points": 300},
+  {"category": "Kultur", "question": "Von wem ist der Song 'What do you mean'?", "answer": "Justin Bieber", "points": 300},
+  {"category": "Geschichte", "question": "In welchem Jahr fiel die Berliner Mauer?", "answer": "1989", "points": 400},
+  {"category": "Geografie", "question": "Währung von Japan?", "answer": "Yen", "points": 400},
+  {"category": "Wissenschaft", "question": "Was sind Enzyme?", "answer": "Proteine", "points": 400},
+  {"category": "Kultur", "question": "Wie heißt der Frosch aus der Sesamstraße?", "answer": "Kermit", "points": 400},
+  {"category": "Geschichte", "question": "Wie heißt der längste Tag des Jahres?", "answer": "Sommersonnenwende", "points": 500},
+  {"category": "Geografie", "question": "Welches Land liegt süd-östlich von Mexiko?", "answer": "Guatemala", "points": 500},
+  {"category": "Wissenschaft", "question": "Nenne einen Hauptbestandteil der DNA?", "answer": "Adenin, Thymin, Cytosin, Guanin", "points": 500},
+  {"category": "Kultur", "question": "Nenne ein Mitglied der Beatles", "answer": "John Lennon, Paul McCartney, George Harrison, Ringo Starr", "points": 500},
+  {"category": "Geschichte", "question": "Wann begann die Französische Revolution? +- 10", "answer": "1789", "points": 600},
+  {"category": "Geografie", "question": "Welches Tier ist Nationalsymbol Schottlands?", "answer": "Einhorn", "points": 600},
+  {"category": "Wissenschaft", "question": "Welcher Vogel kann rückwärts fliegen??", "answer": "Kolibri", "points": 600},
+  {"category": "Kultur", "question": "Welche Farbe dominiert in Picassos „Blauer Periode“?", "answer": "Blau! ...", "points": 600}
+] 

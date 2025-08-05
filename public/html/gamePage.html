@@ -179,48 +179,9 @@
 <body>
 
 <div class="container py-5" id="pageContent">
-  <div class="row mb-3">
-    <div class="col jeopardy-header">Geschichte</div>
-    <div class="col jeopardy-header">Geografie</div>
-    <div class="col jeopardy-header">Wissenschaft</div>
-    <div class="col jeopardy-header">Popkultur</div>
-  </div>
+  <div class="row mb-3" id="category-row"></div>
 
-  <div class="row mb-2">
-    <div class="col jeopardy-cell" data-question="Wer war der erste Bundeskanzler?" data-answer="Konrad Adenauer" onclick="showOverlay(this, 200)">200</div>
-    <div class="col jeopardy-cell" data-question="Welches Land hat eine quadratische Flagge?" data-answer="Schweiz" onclick="showOverlay(this, 200)">200</div>
-    <div class="col jeopardy-cell" data-question="Wie viele Beine hat eine Spinne?" data-answer="8" onclick="showOverlay(this, 200)">200</div>
-    <div class="col jeopardy-cell" data-question="Wer schrieb Pippi Langstrumpf?" data-answer="Astrid Lindgren" onclick="showOverlay(this, 200)">200</div>
-  </div>
-
-  <div class="row mb-2">
-    <div class="col jeopardy-cell" data-question="Wann begann der Zweite Weltkrieg?" data-answer="1939" onclick="showOverlay(this, 300)">300</div>
-    <div class="col jeopardy-cell" data-question="Wie viele Kontinente gibt es?" data-answer="7" onclick="showOverlay(this, 300)">300</div>
-    <div class="col jeopardy-cell" data-question="Hauptbestandteile der DNA?" data-answer="Adenin, Thymin, Cytosin, Guanin" onclick="showOverlay(this, 300)">300</div>
-    <div class="col jeopardy-cell" data-question="Von wem ist der Song 'What do you mean'?" data-answer="Justin Bieber" onclick="showOverlay(this, 300)">300</div>
-  </div>
-
-  <div class="row mb-2">
-    <div class="col jeopardy-cell" data-question="Wann begann die Französische Revolution?" data-answer="1789" onclick="showOverlay(this, 400)">400</div>
-    <div class="col jeopardy-cell" data-question="Währung von Japan?" data-answer="Yen" onclick="showOverlay(this, 400)">400</div>
-    <div class="col jeopardy-cell" data-question="Was sind Enzyme?" data-answer="Proteine" onclick="showOverlay(this, 400)">400</div>
-    <div class="col jeopardy-cell" data-question="Wie heißt der Frosch aus der Sesamstraße?" data-answer="Kermit" onclick="showOverlay(this, 400)">400</div>
-  </div>
-
-  <div class="row mb-2">
-    <div class="col jeopardy-cell" data-question="Wie heißt der längste Tag des Jahres?" data-answer="Sommersonnenwende" onclick="showOverlay(this, 500)">500</div>
-    <div class="col jeopardy-cell" data-question="Fluss, der durch Paris fließt?" data-answer="Seine" onclick="showOverlay(this, 500)">500</div>
-    <div class="col jeopardy-cell" data-question="Einheit des elektrischen Widerstands?" data-answer="Ohm" onclick="showOverlay(this, 500)">500</div>
-    <div class="col jeopardy-cell" data-question="Mitglied der Beatles nennen" data-answer="John Lennon, Paul McCartney, George Harrison, Ringo Starr" onclick="showOverlay(this, 500)">500</div>
-  </div>
-
-  <div class="row mb-2">
-    <div class="col jeopardy-cell" data-question="Welches Metall ist bei Raumtemperatur flüssig?" data-answer="Quecksilber" onclick="showOverlay(this, 600)">600</div>
-    <div class="col jeopardy-cell" data-question="Welcher Vogel kann rückwärts fliegen?" data-answer="Kolibri" onclick="showOverlay(this, 600)">600</div>
-    <div class="col jeopardy-cell" data-question="Was ergibt Rot und Blau gemischt?" data-answer="Lila" onclick="showOverlay(this, 600)">600</div>
-    <div class="col jeopardy-cell" data-question="Welches Tier ist Nationalsymbol Schottlands?" data-answer="Einhorn" onclick="showOverlay(this, 600)">600</div>
-  </div>
-</div>
+  <div id="game-board"></div>
 
 <div id="questionOverlay">
   <div id="questionBox">

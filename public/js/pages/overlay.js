@@ -65,11 +65,11 @@ document.addEventListener("DOMContentLoaded", () => {
 function showOverlay(cell, points) {
     if (cell.classList.contains("active")) {
         cell.classList.remove("active");
-        activeCell = null;
+        window.activeCell = null;
         return;
     }
-    activeCell = cell;
-    activeCell.classList.add("active");
+    window.activeCell = cell;
+    cell.classList.add("active");
     const question = cell.getAttribute("data-question") || "";
     const answer = cell.getAttribute("data-answer") || "";
     const questionTitleEl = document.getElementById("questionTitle");
@@ -87,6 +87,18 @@ function closeOverlay() {
     }
     const answerTextEl = document.getElementById("answerText");
     answerTextEl.style.display = "none";
+    // Feld nur transparent machen, nicht verschwinden lassen
+    if (window.activeCell) {
+        window.activeCell.style.backgroundColor = 'transparent';
+        window.activeCell.style.border = '2px solid transparent';
+        window.activeCell.style.color = 'transparent';
+        window.activeCell.style.opacity = '0.3'; // Leicht transparent, aber noch sichtbar
+        window.activeCell.setAttribute('data-state', 'hidden');
+        // Nach jedem Schließen prüfen, ob alle Felder transparent sind
+        if (window.GamePagePOMInstance && typeof window.GamePagePOMInstance.checkAllHidden === 'function') {
+            window.GamePagePOMInstance.checkAllHidden();
+        }
+    }
 }
 window.showOverlay = showOverlay;
 window.closeOverlay = closeOverlay;

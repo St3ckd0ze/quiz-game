@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const ul = document.getElementById("team-list") as HTMLUListElement;
 
   async function loadTeams() {
+
+    const isResultPage = document.getElementById("result-page") !== null;
+    if (!isResultPage) {
+
     try {
       const res = await fetch('/teams');  
       const teams = await res.json();
@@ -22,7 +26,11 @@ document.addEventListener("DOMContentLoaded", () => {
         ul.appendChild(li);
       });
     } catch (err) {
-      console.error("Fehler beim Laden der Teams:", err);
+        console.error("Fehler beim Laden der Teams:", err);
+      }
+    }
+    else {
+      document.getElementById("TopMenu")!.innerHTML = "";
     }
   }
 

@@ -3,22 +3,18 @@
   {"category": "Film & Serie", "question": "Wer spielt Iron Man im MCU?", "answer": "Robert Downey Jr.", "points": 400},
   {"category": "Sprichwörter", "question": "Was kommt bekanntlich vor dem Fall?", "answer": "Hochmut", "points": 400},
   {"category": "Schätzfrage", "question": "Wie viele Monate braucht eine Ananas, um zu wachsen? +- 4", "answer": "24 Monate", "points": 400},
-  
   {"category": "Sport", "question": "In welcher Sportart gibt es ein Triple-Double?", "answer": "Basketball", "points": 600},
   {"category": "Film & Serie", "question": "Wie heißt der fiktive Planet von Avatar?", "answer": "Pandora", "points": 600},
   {"category": "Sprichwörter", "question": "Was ist laut Sprichwort dicker als Wasser?", "answer": "Blut", "points": 600},
   {"category": "Schätzfrage", "question": "Wie viele Knochen hat ein erwachsener Mensch? +- 5", "answer": "206 Knochen", "points": 600},
-  
   {"category": "Sport", "question": "Wer hat die Fußball-WM der Frauen 2025 gewonnen?", "answer": "England", "points": 800},
   {"category": "Film & Serie", "question": "Wer inszenierte 'Pulp Fiction'?", "answer": "Quentin Tarantino", "points": 800},
   {"category": "Sprichwörter", "question": "Wie endet der Spruch: 'Morgenstund ...'?", "answer": "… hat Gold im Mund", "points": 800},
   {"category": "Schätzfrage", "question": "Wie viel Prozent der weltweiten Währung ist digital? +- 5%", "answer": "92 %", "points": 800},
-  
   {"category": "Sport", "question": "Wie oft gewann Deutschland die Fußball-WM der Männer?", "answer": "4 Mal", "points": 1000},
   {"category": "Film & Serie", "question": "Wie heißt Jon Schnees Wolf in 'Game of Thrones'?", "answer": "Ghost / Geist", "points": 1000},
   {"category": "Sprichwörter", "question": "Was ist 'des einen Freud' laut Sprichwort?", "answer": "Des andern Leid", "points": 1000},
-  {"category": "Schätzfrage", "question": "Wie hoch ist der Eiffelturm (Meter)? +- 10", "answer": "330 Meter", "points": 1000},
-  
+  {"category": "Schätzfrage", "question": "Wie hoch ist der Eiffelturm (Meter)? +- 10", "answer": "330 Meter", "points": 1000}, 
   {"category": "Sport", "question": "Welches Land gewann die erste Fußball-Weltmeisterschaft 1930?", "answer": "Uruguay", "points": 1200},
   {"category": "Film & Serie", "question": "In welchem Bahnhof befindet sich das Gleis 9 ¾?", "answer": "King's Cross", "points": 1200},
   {"category": "Sprichwörter", "question": "Beende „Was der Bauer nicht kennt, ...“", "answer": "... frisst er nicht.", "points": 1200},

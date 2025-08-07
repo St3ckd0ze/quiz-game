@@ -10,12 +10,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const res = await fetch('/teams');  
       const teams = await res.json();
       ul.innerHTML = "";
-      teams.forEach((team: {name: string, points: number}) => {
+      teams.forEach((team: {name: string, points: number, color: string}) => {
         const li = document.createElement("li");
 
         const nameSpan = document.createElement("span");
         nameSpan.classList.add("team-name");
         nameSpan.textContent = team.name;
+        nameSpan.style.color = team.color;
 
         const pointsSpan = document.createElement("span");
         pointsSpan.classList.add("team-points");

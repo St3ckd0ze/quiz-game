@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const nameSpan = document.createElement("span");
                     nameSpan.classList.add("team-name");
                     nameSpan.textContent = team.name;
+                    nameSpan.style.color = team.color;
                     const pointsSpan = document.createElement("span");
                     pointsSpan.classList.add("team-points");
                     pointsSpan.textContent = `: ${team.points} Punkte`;

@@ -1,56 +1,90 @@
+let dropdownOrder: string[] = [];
 let activeCell: HTMLElement | null = null;
+let usedTeams: string[] = [];
+let rotationIndex: number = 0;
 
-function toggleAnswer() {
-  const answerTextEl = document.getElementById("answerText") as HTMLElement;
-  if (!answerTextEl) return;
-  answerTextEl.style.display = (answerTextEl.style.display === "none" || answerTextEl.style.display === "") ? "block" : "none";
-}
-
-function initOverlayPage() {
+async function loadTeams() {
   const teamSelect = document.getElementById("team-select") as HTMLSelectElement;
-  const pointsInput = document.getElementById("field-points") as HTMLInputElement;
-  const correctBtn = document.getElementById("correct-btn") as HTMLButtonElement;
-  const wrongBtn = document.getElementById("wrong-btn") as HTMLButtonElement;
+  try {
+    const res = await fetch('/teams');
+    const teams: {name: string, points: number}[] = await res.json();
+    teamSelect.innerHTML = "";
+    const rotatedOrder = [
+      ...dropdownOrder.slice(rotationIndex),
+      ...dropdownOrder.slice(0, rotationIndex)
+    ];
 
-  const questionTitleEl = document.getElementById("questionTitle") as HTMLElement;
-  const answerTextEl = document.getElementById("answerText") as HTMLElement;
-
-  async function loadTeams() {
-    try {
-      const res = await fetch('/teams');
-      const teams: {name: string, points: number}[] = await res.json();
-      teamSelect.innerHTML = "";
-      teams.forEach(team => {
+    teams
+      .filter(team => !usedTeams.includes(team.name))
+      .sort((a, b) => rotatedOrder.indexOf(a.name) - rotatedOrder.indexOf(b.name))
+      .forEach(team => {
         const option = document.createElement("option");
         option.value = team.name;
         option.textContent = `${team.name} (${team.points} Punkte)`;
         teamSelect.appendChild(option);
       });
-    } catch (e) {
-      console.error("Fehler beim Laden der Teams:", e);
+    if (dropdownOrder.length === 0) {
+      dropdownOrder = teams.map(team => team.name);
     }
+  } catch (e) {
+    console.error("Fehler beim Laden der Teams:", e);
+  }
+}
+
+async function updatePoints(isCorrect: boolean) {
+  const teamSelect = document.getElementById("team-select") as HTMLSelectElement;
+  const pointsInput = document.getElementById("field-points") as HTMLInputElement;
+
+  const teamName = teamSelect.value;
+  const fieldPoints = Number(pointsInput.value) || 0;
+
+  // Frage-ID aus activeCell lesen
+  const frageId = (window as any).activeCell?.getAttribute('data-question-id') || "";
+
+  // Prüfen, ob noch niemand geraten hat (lokal im Frontend)
+  const firstTry = usedTeams.length === 0;
+
+  // Das erste Team, das antwortet, ist der Question Selector
+  const isQuestionSelector = firstTry;
+
+  if (!teamName) return;
+
+  try {
+    await fetch('/teams/update', {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ teamName, isCorrect, fieldPoints, frageId, isQuestionSelector })
+    });
+    usedTeams.push(teamName);
+    await loadTeams();
+  } catch (e) {
+    console.error("Fehler beim Punkte aktualisieren:", e);
+  }
+}
+
+const correctHandler = () => updatePoints(true);
+const wrongHandler = () => updatePoints(false);
+
+function initOverlayPage() {
+  const correctBtn = document.getElementById("correct-btn") as HTMLButtonElement;
+  const wrongBtn = document.getElementById("wrong-btn") as HTMLButtonElement;
+
+  if (correctBtn) {
+    correctBtn.removeEventListener("click", correctHandler);
+    correctBtn.addEventListener("click", correctHandler);
+  }
+  if (wrongBtn) {
+    wrongBtn.removeEventListener("click", wrongHandler);
+    wrongBtn.addEventListener("click", wrongHandler);
   }
 
-  async function updatePoints(isCorrect: boolean) {
-    const teamName = teamSelect.value;
-    const fieldPoints = Number(pointsInput.value) || 0;
-    if (!teamName) return;
-
-    try {
-      await fetch('/teams/update', {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ teamName, isCorrect, fieldPoints })
-      });
-      await loadTeams();
-    } catch (e) {
-      console.error("Fehler beim Punkte aktualisieren:", e);
-    }
-  }
-
-  correctBtn.addEventListener("click", () => updatePoints(true));
-  wrongBtn.addEventListener("click", () => updatePoints(false));
   loadTeams();
+}
+
+function toggleAnswer() {
+  const answerTextEl = document.getElementById("answerText") as HTMLElement;
+  if (!answerTextEl) return;
+  answerTextEl.style.display = (answerTextEl.style.display === "none" || answerTextEl.style.display === "") ? "block" : "none";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -111,8 +145,17 @@ function closeOverlay() {
       (window as any).GamePagePOMInstance.checkAllHidden();
     }
   }
+  rotationIndex = (rotationIndex + 1) % dropdownOrder.length;
+  usedTeams = [];
+  initOverlayPage();
 }
 
 (window as any).showOverlay = showOverlay;
 (window as any).closeOverlay = closeOverlay;
 (window as any).toggleAnswer = toggleAnswer;
+
+(window as any).rotateDropdownOrder = function () {
+  if (dropdownOrder.length > 0) {
+    dropdownOrder.push(dropdownOrder.shift()!);
+  }
+};

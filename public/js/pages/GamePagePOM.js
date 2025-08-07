@@ -44,7 +44,10 @@ export default class GamePagePOM extends AbstractPOM {
                 cell.setAttribute('data-question', q.question);
                 cell.setAttribute('data-answer', q.answer);
                 cell.setAttribute('data-state', 'visible');
-                cell.textContent = q.points;
+                // Frage-ID eindeutig generieren
+                const frageId = `round${this.currentRound}-${q.category}-${r}-${c}`;
+                cell.setAttribute('data-question-id', frageId);
+                cell.textContent = q.points.toString();
                 cell.onclick = () => window.showOverlay(cell, q.points);
                 cell.addEventListener('transitionend', () => this.checkAllHidden());
                 rowDiv.appendChild(cell);
@@ -52,11 +55,8 @@ export default class GamePagePOM extends AbstractPOM {
             board.appendChild(rowDiv);
         }
         this.addNextRoundButton();
-        // --- DEBUG: Ergebnisse-Button direkt beim Start anzeigen ---
-        this.showResultsButton();
-        // --- ENDE DEBUG ---
-        // Entferne die nächste Zeile, um den Button nur nach Runde 2 zu zeigen:
-        // this.showResultsButton();
+        //Debug Wichtig nicht Löschen!!!
+        //this.showResultsButton();
     }
     checkAllHidden() {
         const cells = document.querySelectorAll('.jeopardy-cell');
@@ -111,10 +111,8 @@ export default class GamePagePOM extends AbstractPOM {
     }
     async loadAndDisplayResults() {
         try {
-            console.log("Lade Ergebnisse...");
             const res = await fetch('/teams');
             const teams = await res.json();
-            console.log("Geladene Teams:", teams);
             // Teams nach Punkten sortieren (höchste zuerst)
             teams.sort((a, b) => b.points - a.points);
             const podiumPlaces = [];
@@ -146,17 +144,20 @@ export default class GamePagePOM extends AbstractPOM {
                     teams: []
                 });
             }
-            console.log("Podium Places:", podiumPlaces);
-            // Podium anzeigen
+            // Podium anzeigen (mit dynamischer Farbe)
             if (podiumPlaces.length >= 1) {
                 const place1 = podiumPlaces[0];
                 const team1Container = document.getElementById('team1-name');
                 const team1Points = document.getElementById('team1-points');
                 if (team1Container) {
-                    team1Container.innerHTML = place1.teams.map((team) => team.name).join('<br>');
+                    team1Container.innerHTML = place1.teams.map((team) => {
+                        return `<span style="color: ${team.color || '#fff'}">${team.name}</span>`;
+                    }).join('<br>');
                 }
                 if (team1Points) {
                     team1Points.textContent = place1.points + ' Punkte';
+                    // Optional: Farbe der Punktzahl anpassen (Farbe des ersten Teams)
+                    team1Points.style.color = '#fff';
                 }
             }
             if (podiumPlaces.length >= 2) {
@@ -164,10 +165,13 @@ export default class GamePagePOM extends AbstractPOM {
                 const team2Container = document.getElementById('team2-name');
                 const team2Points = document.getElementById('team2-points');
                 if (team2Container) {
-                    team2Container.innerHTML = place2.teams.map((team) => team.name).join('<br>');
+                    team2Container.innerHTML = place2.teams.map((team) => {
+                        return `<span style="color: ${team.color || '#fff'}">${team.name}</span>`;
+                    }).join('<br>');
                 }
                 if (team2Points) {
                     team2Points.textContent = place2.points + ' Punkte';
+                    team2Points.style.color = '#fff';
                 }
             }
             if (podiumPlaces.length >= 3) {
@@ -175,10 +179,13 @@ export default class GamePagePOM extends AbstractPOM {
                 const team3Container = document.getElementById('team3-name');
                 const team3Points = document.getElementById('team3-points');
                 if (team3Container) {
-                    team3Container.innerHTML = place3.teams.map((team) => team.name).join('<br>');
+                    team3Container.innerHTML = place3.teams.map((team) => {
+                        return `<span style="color: ${team.color || '#fff'}">${team.name}</span>`;
+                    }).join('<br>');
                 }
                 if (team3Points) {
                     team3Points.textContent = place3.points + ' Punkte';
+                    team3Points.style.color = '#fff';
                 }
             }
             // Globale Funktionen für results.html verfügbar machen

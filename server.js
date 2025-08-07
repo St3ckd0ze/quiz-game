@@ -13,10 +13,10 @@ app.listen(PORT, () => {
  * The User List managed as an in-memory list
  */
 const userList = new Map()
-userList.set("Team Rot", { "userID": "Team Rot", "points": 0})
-userList.set("Team Grün", { "userID": "Team Grün", "points": 0})
-userList.set("Team Blau", { "userID": "Team Blau", "points": 0})
-userList.set("Team Orange", { "userID": "Team Orange", "points": 0})
+userList.set("Team Rot", { "userID": "Team Rot", "points": 0, "color": "#ff4d4d" });
+userList.set("Team Grün", { "userID": "Team Grün", "points": 0, "color": "#4dff4d" });
+userList.set("Team Blau", { "userID": "Team Blau", "points": 0, "color": "#4d4dff" });
+userList.set("Team Orange", { "userID": "Team Orange", "points": 0, "color": "#ffb84d" });
 
 app.use(bodyParser.json());
 
@@ -167,37 +167,77 @@ app.delete('/api/users/:id', (req, res) => {
 app.get('/teams', (req, res) => {
     const teams = Array.from(userList.entries()).map(([name, data]) => ({
         name,
-        points: data.points || 0
+        points: data.points || 0,
+        color: data.color || "#ffffff"
     }));
     res.json(teams);
 });
 
-// POST to update points after question answered
+// Map, um pro Frage zu speichern, welche Teams schon geantwortet haben
+const answeredTeamsPerQuestion = new Map();
+// Map, um pro Frage zu speichern, welches Team die Frage ausgewählt hat (erstes Team)
+const questionSelectorPerQuestion = new Map();
+
 app.post('/teams/update', (req, res) => {
-    const { teamName, isCorrect, fieldPoints, steal, victimTeam } = req.body;
+  const { teamName, isCorrect, fieldPoints, steal, victimTeam, frageId, isQuestionSelector } = req.body;
 
-    if (!userList.has(teamName)) {
-        return res.status(400).json({ error: "Team nicht gefunden" });
-    }
+  if (!userList.has(teamName)) {
+    return res.status(400).json({ error: "Team nicht gefunden" });
+  }
 
-    let team = userList.get(teamName);
+  if (!frageId) {
+    return res.status(400).json({ error: "Frage-ID fehlt" });
+  }
 
-    if (steal && victimTeam && userList.has(victimTeam)) {
-        let victim = userList.get(victimTeam);
-        const halfPoints = Math.floor(fieldPoints / 2);
-        victim.points -= halfPoints;
-        team.points += halfPoints;
-        userList.set(victimTeam, victim);
-        userList.set(teamName, team);
-        return res.json({ message: "Punkte geklaut" });
-    }
+  let team = userList.get(teamName);
 
-    if (isCorrect) {
-        team.points += fieldPoints;
-    } else {
-        team.points -= Math.floor(fieldPoints / 2);
-    }
+  // Hole oder erstelle Set mit Teams, die für diese Frage geantwortet haben
+  let answeredTeams = answeredTeamsPerQuestion.get(frageId);
+  if (!answeredTeams) {
+    answeredTeams = new Set();
+    answeredTeamsPerQuestion.set(frageId, answeredTeams);
+  }
 
+  // Wenn das Team die Frage ausgewählt hat, speichere es als Question Selector
+  if (isQuestionSelector) {
+    questionSelectorPerQuestion.set(frageId, teamName);
+  }
+
+  // Hole das Team, das die Frage ausgewählt hat
+  const questionSelector = questionSelectorPerQuestion.get(frageId);
+  
+  // Prüfe, ob Team schon für diese Frage geantwortet hat
+  const firstTry = !answeredTeams.has(teamName);
+  
+  // Prüfe, ob dieses Team die Frage ausgewählt hat
+  const isThisTeamSelector = teamName === questionSelector;
+
+  if (steal && victimTeam && userList.has(victimTeam)) {
+    // Stehlen-Logik bleibt gleich
+    let victim = userList.get(victimTeam);
+    const halfPoints = Math.floor(fieldPoints / 2);
+    victim.points -= halfPoints;
+    team.points += halfPoints;
+    userList.set(victimTeam, victim);
     userList.set(teamName, team);
-    res.json({ message: "Punkte aktualisiert" });
+    return res.json({ message: "Punkte geklaut" });
+  }
+
+  if (isCorrect) {
+    if (isThisTeamSelector && firstTry) {
+      // Frage-Auswähler beim ersten Versuch richtig: 100% der fieldPoints
+      team.points += fieldPoints;
+    } else {
+      // Alle anderen oder Frage-Auswähler bei späteren Versuchen: 50% der fieldPoints
+      team.points += Math.floor(fieldPoints / 2);
+    }
+  } else {
+    // Falsche Antwort: immer -50% der fieldPoints
+    team.points -= Math.floor(fieldPoints / 2);
+  }
+
+  answeredTeams.add(teamName);
+  userList.set(teamName, team);
+
+  res.json({ message: "Punkte aktualisiert" });
 });

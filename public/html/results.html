@@ -61,6 +61,8 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
+      align-items: center;
+      text-align: center;
       padding-bottom: 1rem;
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
@@ -74,6 +76,8 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
+      align-items: center;
+      text-align: center;
       padding-bottom: 1rem;
       box-shadow: 0 6px 12px rgba(0,0,0,0.4);
     }
@@ -87,6 +91,8 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
+      align-items: center;
+      text-align: center;
       padding-bottom: 1rem;
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
@@ -94,7 +100,7 @@
     .team-name {
       font-size: 1.5rem;
       font-weight: bold;
-      margin-bottom: 0.5rem;
+      margin: auto 0;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
     }
 
@@ -102,12 +108,14 @@
       font-size: 2rem;
       font-weight: bold;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+      margin-top: auto;
     }
 
     .position-badge {
       font-size: 1.2rem;
       font-weight: bold;
       margin-bottom: 1rem;
+      margin-top: 1rem;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
     }
 
@@ -143,6 +151,12 @@
       font-size: 2rem;
       margin-bottom: 0.5rem;
     }
+
+    .podium-wrapper {
+      transform: scale(1.3);
+      transform-origin: center bottom;
+      margin-top: 10rem;
+    }
   </style>
 </head>
 <body>
@@ -150,29 +164,31 @@
 <div class="container" id="result-page">
   <h1 class="results-title">🏆 Quiz-Ergebnisse 🏆</h1>
   
-  <div class="podium">
-    <div class="podium-place">
-      <div class="podium-2nd">
-        <div class="position-badge">🥈 2. Platz</div>
-        <div class="team-name" id="team2-name">Team 2</div>
-        <div class="team-points" id="team2-points">0 Punkte</div>
+  <div class="podium-wrapper">
+    <div class="podium">
+      <div class="podium-place">
+        <div class="podium-2nd">
+          <div class="position-badge">🥈 2. Platz</div>
+          <div class="team-name" id="team2-name">Team 2</div>
+          <div class="team-points" id="team2-points">0 Punkte</div>
+        </div>
       </div>
-    </div>
-    
-    <div class="podium-place">
-      <div class="podium-1st">
-        <div class="crown">👑</div>
-        <div class="position-badge">🥇 1. Platz</div>
-        <div class="team-name" id="team1-name">Team 1</div>
-        <div class="team-points" id="team1-points">0 Punkte</div>
+      
+      <div class="podium-place">
+        <div class="podium-1st">
+          <div class="crown">👑</div>
+          <div class="position-badge">🥇 1. Platz</div>
+          <div class="team-name" id="team1-name">Team 1</div>
+          <div class="team-points" id="team1-points">0 Punkte</div>
+        </div>
       </div>
-    </div>
-    
-    <div class="podium-place">
-      <div class="podium-3rd">
-        <div class="position-badge">🥉 3. Platz</div>
-        <div class="team-name" id="team3-name">Team 3</div>
-        <div class="team-points" id="team3-points">0 Punkte</div>
+      
+      <div class="podium-place">
+        <div class="podium-3rd">
+          <div class="position-badge">🥉 3. Platz</div>
+          <div class="team-name" id="team3-name">Team 3</div>
+          <div class="team-points" id="team3-points">0 Punkte</div>
+        </div>
       </div>
     </div>
   </div>

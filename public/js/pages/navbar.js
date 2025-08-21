@@ -17,6 +17,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     const pointsSpan = document.createElement("span");
                     pointsSpan.classList.add("team-points");
                     pointsSpan.textContent = `: ${team.points} Punkte`;
+                    // Länge messen
+                    const totalLength = (team.name + team.points).length;
+                    if (totalLength > 15) {
+                        li.classList.add("small-text");
+                    }
+                    if (totalLength > 20) {
+                        li.classList.add("smaller-text", "tight");
+                    }
                     li.appendChild(nameSpan);
                     li.appendChild(pointsSpan);
                     ul.appendChild(li);

@@ -13,10 +13,10 @@ app.listen(PORT, () => {
  * The User List managed as an in-memory list
  */
 const userList = new Map()
-userList.set("Team Rot", { "userID": "Team Rot", "points": 0, "color": "#ff4d4d" });
-userList.set("Team Grün", { "userID": "Team Grün", "points": 0, "color": "#4dff4d" });
-userList.set("Team Blau", { "userID": "Team Blau", "points": 0, "color": "#4d4dff" });
-userList.set("Team Orange", { "userID": "Team Orange", "points": 0, "color": "#ffb84d" });
+userList.set("Team Dino", { "userID": "Team Dino", "points": 0, "color": "#ff4d4d" });
+userList.set("Team Steinzeit", { "userID": "Team Steinzeit", "points": 0, "color": "#4dff4d" });
+userList.set("Team Ägypten", { "userID": "Team Ägypten", "points": 0, "color": "#4d4dff" });
+userList.set("Team Zukunft", { "userID": "Team Zukunft", "points": 0, "color": "#ffb84d" });
 
 app.use(bodyParser.json());
 
